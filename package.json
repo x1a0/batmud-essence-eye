@@ -1,0 +1,27 @@
+{
+  "name": "batmud-essence-eye",
+  "version": "1.0.0",
+  "description": "BatMUD Essence Eye - Chrome/Firefox browser extension for watching BatMUD SS EQ bidding",
+  "main": "src/background.js",
+  "scripts": {
+    "dev:firefox": "web-ext run --source-dir ./src",
+    "dev:chrome": "web-ext run --source-dir ./src --target chromium",
+    "build": "web-ext build --source-dir ./src --artifacts-dir ./dist",
+    "lint": "web-ext lint --source-dir ./src"
+  },
+  "keywords": [
+    "batmud",
+    "browser-extension",
+    "webextension",
+    "manifest-v3"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "web-ext": "^8.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/x1a0/batmud-essence-eye.git"
+  }
+}

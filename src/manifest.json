@@ -1,0 +1,52 @@
+{
+  "manifest_version": 3,
+  "name": "Essence Eye",
+  "version": "1.0.0",
+  "description": "Help watch the EQs you want to bid on in BatMUD's SS.",
+
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"]
+  },
+
+  "host_permissions": [
+    "https://www.bat.org/ss/pool.php"
+  ],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.bat.org/ss/pool.php?s=*"],
+      "js": ["content.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "action": {
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    },
+    "default_title": "It uses no endurance points."
+  },
+
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "batmud-essence-eye@x1a0.com",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    }
+  }
+}
