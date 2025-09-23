@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Essence Eye",
-  "version": "1.0.1.0",
+  "version": "1.0.1.1",
   "description": "Help watch the EQs you want to bid on in BatMUD's SS.",
 
   "permissions": [
