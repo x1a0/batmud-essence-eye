@@ -1,6 +1,6 @@
 {
   "name": "batmud-essence-eye",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BatMUD Essence Eye - Chrome/Firefox browser extension for watching BatMUD SS EQ bidding",
   "main": "src/background.js",
   "scripts": {
