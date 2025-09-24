@@ -26,7 +26,6 @@ jobs:
         with:
           cmd: build
           source: src
-          filename: "essence-eye.xpi"
 
       - name: "web-ext sign AMO"
         id: web-ext-sign
@@ -45,5 +44,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload ${{ github.event.release.tag_name }} \
-            ${{ steps.web-ext-sign.outputs.target }}
+          # rename the file
+          mv ${{ steps.web-ext-sign.outputs.target }} essence-eye.xpi
+          gh release upload ${{ github.event.release.tag_name }} essence-eye.xpi
+            
