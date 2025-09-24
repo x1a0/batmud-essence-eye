@@ -26,6 +26,7 @@ jobs:
         with:
           cmd: build
           source: src
+          filename: "essence-eye-{version}.xpi"
 
       - name: "web-ext sign AMO"
         id: web-ext-sign
