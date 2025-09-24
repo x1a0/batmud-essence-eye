@@ -5,7 +5,6 @@
   "description": "Help watch the EQs you want to bid on in BatMUD's SS.",
 
   "permissions": [
-    "activeTab",
     "storage"
   ],
 
