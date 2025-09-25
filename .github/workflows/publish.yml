@@ -24,6 +24,7 @@ jobs:
         with:
           cmd: build
           source: src
+          filename: "batmud-essence-eye.zip"
 
       - name: "Upload package"
         uses: actions/upload-artifact@v4
@@ -51,7 +52,7 @@ jobs:
         with:
           cmd: sign
 
-          source: ${{ steps.download-package.outputs.download-path }}
+          source: ${{ steps.download-package.outputs.download-path }}/batmud-essence-eye.zip
           channel: unlisted
 
           apiKey: ${{ secrets.AMO_SIGN_KEY }}
@@ -81,7 +82,7 @@ jobs:
         uses: mobilefirstllc/cws-publish@latest
         with:
           action: publish
-          zip_file: ${{ steps.download-package.outputs.download-path }}
+          zip_file: ${{ steps.download-package.outputs.download-path }}/batmud-essence-eye.zip
           extension_id: ghhdhjhlnichnicmbjlceoipoomaoebp
           client_id: ${{ secrets.CHROME_PUBLISHER_CLIENT_ID }}
           client_secret: ${{ secrets.CHROME_PUBLISHER_CLIENT_SECRET }}
