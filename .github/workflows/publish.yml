@@ -4,10 +4,8 @@ on:
     types: [published]
 
 jobs:
-  sign:
-    permissions:
-      contents: write
-    name: "Release"
+  build:
+    name: "Build"
     runs-on: ubuntu-latest
     steps:
       - name: "Checkout"
@@ -27,13 +25,33 @@ jobs:
           cmd: build
           source: src
 
+      - name: "Upload package"
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension-package
+          path: ${{ steps.web-ext-build.outputs.target }}
+          retention-days: 1
+
+  firefox:
+    name: "Sign Firefox extension"
+    needs: build
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download package"
+        id: download-package
+        uses: actions/download-artifact@v5
+        with:
+          name: extension-package
+
       - name: "web-ext sign AMO"
         id: web-ext-sign
         uses: kewisch/action-web-ext@v1
         with:
           cmd: sign
 
-          source: ${{ steps.web-ext-build.outputs.target }}
+          source: ${{ steps.download-package.outputs.download-path }}
           channel: unlisted
 
           apiKey: ${{ secrets.AMO_SIGN_KEY }}
@@ -48,3 +66,23 @@ jobs:
           mv ${{ steps.web-ext-sign.outputs.target }} essence-eye.xpi
           gh release upload ${{ github.event.release.tag_name }} essence-eye.xpi
             
+  chrome:
+    name: "Publish to Chrome Web Store"
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Download package"
+        id: download-package
+        uses: actions/download-artifact@v5
+        with:
+          name: extension-package
+
+      - name: "Upload to Chrome Web Store"
+        uses: mobilefirstllc/cws-publish@latest
+        with:
+          action: publish
+          zip_file: ${{ steps.download-package.outputs.download-path }}
+          extension_id: ghhdhjhlnichnicmbjlceoipoomaoebp
+          client_id: ${{ secrets.CHROME_PUBLISHER_CLIENT_ID }}
+          client_secret: ${{ secrets.CHROME_PUBLISHER_CLIENT_SECRET }}
+          refresh_token: ${{ secrets.CHROME_PUBLISHER_REFRESH_TOKEN }}
